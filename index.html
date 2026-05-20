@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد ميلاد سعيد! 🌸</title>
+    <title>happy birthday shhod 🌸</title>
     <style>
         body {
             background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
@@ -15,7 +15,28 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            overflow-x: hidden;
+            overflow: hidden; /* عشان الورد اللي بيقع ميعملش سكرول في الشاشة */
+            position: relative;
+        }
+
+        /* ===== أنيميشن تساقط الورد في الخلفية ===== */
+        .falling-rose {
+            position: absolute;
+            top: -50px;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* حاوية الوردة الكبيرة */
@@ -23,8 +44,9 @@
             position: relative;
             width: 200px;
             height: 200px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
+            z-index: 5;
         }
 
         /* قلب الوردة */
@@ -73,37 +95,95 @@
             top: 150px;
             left: 50%;
             width: 8px;
-            height: 100px;
+            height: 60px; /* قصرنا الساق شوية عشان يتناسق مع الجواب */
             background: #2d6a4f;
             transform: translateX(-50%);
             z-index: -1;
             border-radius: 4px;
         }
 
-        /* كارت الكلام الحلو */
-        .card {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        /* ===== تصميم الجواب والمغلف الاحترافي ===== */
+        .envelope-container {
+            position: relative;
+            width: 340px;
+            height: 180px;
+            margin-bottom: 25px;
+            z-index: 6;
+        }
+
+        .envelope {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff4d6d;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+
+        /* غطاء الجواب */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 170px solid transparent;
+            border-right: 170px solid transparent;
+            border-top: 110px solid #ff758f;
+            transform-origin: top;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+        }
+
+        /* تأثير فتح الغطاء لورا */
+        .envelope.open::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* ورقة الرسالة البيضاء اللى بتطلع لفوق */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            width: 310px;
+            height: 155px;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 1;
+            opacity: 0;
             text-align: center;
-            max-width: 500px;
-            backdrop-filter: blur(10px);
-            border: 2px solid #fff;
+            border: 1px solid #ffe5ec;
         }
 
-        h1 {
+        /* خروج الرسالة من الجواب بنعومة وثبات */
+        .envelope.open .letter {
+            transform: translateY(-140px);
+            height: auto;
+            min-height: 220px;
+            opacity: 1;
+            z-index: 4;
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
+        }
+
+        .letter h2 {
             color: #c71585;
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
-        p {
+        .letter p {
             color: #4a4a4a;
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin: 10px 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 8px 0;
         }
 
         .highlight {
@@ -111,16 +191,43 @@
             font-weight: bold;
         }
 
-        /* حركة خفيفة للوردة */
+        /* زر الفتح */
+        .btn-open {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.3);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .btn-open:hover {
+            background: #c71585;
+            transform: translateY(-2px);
+        }
+
+        .btn-open:disabled {
+            background: #999;
+            box-shadow: none;
+            transform: none;
+            cursor: default;
+        }
+
+        /* حركة خفيفة للوردة الكبيرة */
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(3deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
         }
     </style>
 </head>
 <body>
 
-    <!-- الوردة الكبيرة -->
+    <!-- الوردة الكبيرة بتاعتك -->
     <div class="flower-container">
         <div class="petal"></div>
         <div class="petal"></div>
@@ -134,13 +241,59 @@
         <div class="stem"></div>
     </div>
 
-    <!-- كارت المعايدة -->
-    <div class="card">
-        <h1>كل سنة وأنت طيب! 🎉🎂</h1>
-        <p>في يوم ميلادك، حبيت أهديك <span class="highlight">أجمل وردة</span> بتكبر وتنور بوجودك في حياتنا.</p>
-        <p>كل عام وأنت مصدر النور والبهجة لكل اللي حواليك، أتمنى لك سنة جديدة مليانة فرحة، ونجاح، وراحة بال، وتحقق فيها كل اللي بتتمنّاه وأكتر.</p>
-        <p class="highlight" style="font-size: 1.5rem; margin-top: 20px;">🌸 عيد ميلاد سعيد يا غالي 🌸</p>
+    <!-- منطقة الجواب والرسالة المخفية -->
+    <div class="envelope-container">
+        <div class="envelope" id="envelope">
+            <div class="letter">
+                <h2>كل سنة وأنتِ طيبة يا شهود! 🎉🎂</h2>
+                <p><span class="highlight"></span>العمر كل ليكي ياحبيبي وتحققي كل الي تتمنيه.</p>
+                <p>🥹♥️♥️♥️♥️كل عام وأنتي بصحى وسعاده دايما ياقلبي مليانة فرحه ونجاح، وراحة بال وتبقي احسن دكتوره وشكرا بجد انك دليما جنبي وبتسمعيني وبتهتمي بيا ياحبيبي ورنا يدمك ليا لاف يوووو ياشهوددد .</p>
+                <p class="highlight" style="font-size: 1.2rem; margin-top: 15px;">🌸 عيد ميلاد سعيد 🌸</p>
+            </div>
+        </div>
     </div>
+
+    <!-- زر التفاعل المباشر لفتح الجواب -->
+    <button class="btn-open" id="openBtn" onclick="openEnvelope()">💌</button>
+
+    <script>
+        // دالة تشغيل أنيميشن الجواب
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const btn = document.getElementById('openBtn');
+            
+            envelope.classList.add('open');
+            btn.innerText = 'عيد ميلاد سعيد! 💖';
+            btn.disabled = true;
+        }
+
+        // دالة إنشاء وصناعة الورد المتساقط في الخلفية بشكل تلقائي ومتجدد
+        const roseTypes = ['🌸', '🌹', '✨', '💮', ' pétales']; 
+        // المزيج ده بيعمل شكل بتلات ورد حقيقي وناعم جداً بيتساقط في الخلفية
+        function createFallingRose() {
+            const rose = document.createElement('div');
+            rose.classList.add('falling-rose');
+            
+            // اختيار عشوائي لشكل البتلة أو الوردة اللطيفة
+            const currentRose = roseTypes[Math.floor(Math.random() * roseTypes.length)];
+            rose.innerText = currentRose === ' pétales' ? '🌸' : currentRose; 
+            
+            rose.style.left = Math.random() * 100 + 'vw';
+            rose.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+            rose.style.animationDuration = (Math.random() * 3 + 4) + 's'; // سرعة هادية ومريحة للعين بدون هز
+            rose.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            document.body.appendChild(rose);
+
+            // حذف الوردة بعد ما تخرج بره الشاشة عشان الصفحة تفضل سريعة
+            setTimeout(() => {
+                rose.remove();
+            }, 6000);
+        }
+
+        // تكرار التساقط بانتظام ناعم ومستمر
+        setInterval(createFallingRose, 250);
+    </script>
 
 </body>
 </html>
