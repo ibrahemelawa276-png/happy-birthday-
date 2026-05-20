@@ -3,258 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مفاجأة 3D خاصة ✨</title>
+    <title>عيد ميلاد سعيد! 🌸</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #f5efef 0%, #e5d9d6 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* حاوية الـ 3D */
-        #canvas-container {
-            width: 100%;
-            height: 300px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ===== الجواب المودرن ===== */
-        .envelope-container {
-            position: relative;
-            width: 320px;
-            height: 180px;
-            margin-top: 10px;
-            margin-bottom: 25px;
-            z-index: 2;
-        }
-
-        .envelope {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            background: #d62828;
-            border-radius: 0 0 12px 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            z-index: 2;
-        }
-
-        .envelope::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 105px solid #e63946;
-            transform-origin: top;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3;
-        }
-
-        .envelope.open::before {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 15px;
-            width: 290px;
-            height: 155px;
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-            z-index: 1;
-            opacity: 0;
-            text-align: right;
-        }
-
-        .envelope.open .letter {
-            transform: translateY(-130px);
-            height: auto;
-            min-height: 200px;
-            opacity: 1;
-            z-index: 4;
-            box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
-        }
-
-        .letter h2 {
-            font-size: 1.2rem;
-            color: #d62828;
-            margin: 0 0 12px 0;
-            font-weight: bold;
-        }
-
-        .letter p {
-            font-size: 0.95rem;
-            color: #333333;
-            line-height: 1.6;
             margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* الزرار */
-        .btn-open {
-            background: #d62828;
-            color: white;
-            border: none;
-            padding: 14px 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(214, 40, 40, 0.2);
-            transition: all 0.3s ease;
+        /* حاوية الوردة الكبيرة */
+        .flower-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* قلب الوردة */
+        .flower-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: #ffe600;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
             z-index: 10;
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.6);
         }
 
-        .btn-open:hover {
-            background: #780016;
-            transform: translateY(-2px);
+        /* أوراق الوردة */
+        .petal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 90px;
+            background: #ff4d6d;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform-origin: bottom center;
+            margin-left: -30px;
+            margin-top: -90px;
+            opacity: 0.95;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
         }
 
-        .btn-open:disabled {
-            background: #999;
-            box-shadow: none;
-            transform: none;
-            cursor: default;
+        /* توزيع الأوراق بشكل دائري */
+        .petal:nth-child(1) { transform: rotate(0deg); }
+        .petal:nth-child(2) { transform: rotate(45deg); background: #ff758f; }
+        .petal:nth-child(3) { transform: rotate(90deg); }
+        .petal:nth-child(4) { transform: rotate(135deg); background: #ff758f; }
+        .petal:nth-child(5) { transform: rotate(180deg); }
+        .petal:nth-child(6) { transform: rotate(225deg); background: #ff758f; }
+        .petal:nth-child(7) { transform: rotate(270deg); }
+        .petal:nth-child(8) { transform: rotate(315deg); background: #ff758f; }
+
+        /* فرع الورقة الأخضر */
+        .stem {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            width: 8px;
+            height: 100px;
+            background: #2d6a4f;
+            transform: translateX(-50%);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        /* كارت الكلام الحلو */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #fff;
+        }
+
+        h1 {
+            color: #c71585;
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #4a4a4a;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+
+        .highlight {
+            color: #ff4d6d;
+            font-weight: bold;
+        }
+
+        /* حركة خفيفة للوردة */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
         }
     </style>
-    <!-- استدعاء مكتبة Three.js للـ 3D الحقيقي -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
-    <!-- مكان عرض الوردة الـ 3D -->
-    <div id="canvas-container"></div>
-
-    <!-- الجواب -->
-    <div class="envelope-container">
-        <div class="envelope" id="envelope">
-            <div class="letter">
-                <h2>كل سنة وأنتِ طيبة يا غالية! 🎂✨</h2>
-                <p>اليوم ده مش عيد ميلادك أنتِ وبس، ده عيد ميلاد الأيام الحلوة اللي جمعتني بيكِ. ربنا يديمك في حياتي يا سندي وسري وفرحتي الكبيرة. بتمنالك سنة كلها نجاح وفرحة شبه قلبك! 💗</p>
-            </div>
-        </div>
+    <!-- الوردة الكبيرة -->
+    <div class="flower-container">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="flower-center"></div>
+        <div class="stem"></div>
     </div>
 
-    <!-- زر الفتح -->
-    <button class="btn-open" id="openBtn" onclick="toggleEnvelope()">اضغطي هنا لفتح الجواب 💌</button>
+    <!-- كارت المعايدة -->
+    <div class="card">
+        <h1>كل سنة وأنت طيب! 🎉🎂</h1>
+        <p>في يوم ميلادك، حبيت أهديك <span class="highlight">أجمل وردة</span> بتكبر وتنور بوجودك في حياتنا.</p>
+        <p>كل عام وأنت مصدر النور والبهجة لكل اللي حواليك، أتمنى لك سنة جديدة مليانة فرحة، ونجاح، وراحة بال، وتحقق فيها كل اللي بتتمنّاه وأكتر.</p>
+        <p class="highlight" style="font-size: 1.5rem; margin-top: 20px;">🌸 عيد ميلاد سعيد يا غالي 🌸</p>
+    </div>
 
-    <script>
-        // ===== كود الـ 3D الفعلي (Three.js) =====
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        
-        // الكاميرا والاضاءة
-        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.z = 15;
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        container.appendChild(renderer.domElement);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-
-        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        dirLight.position.set(5, 10, 7);
-        scene.add(dirLight);
-
-        // إنشاء الوردة الـ 3D (مجموعة من الأشكال الهندسية المتداخلة)
-        const roseGroup = new THREE.Group();
-
-        // الساق الـ 3D
-        const stemGeometry = new THREE.CylinderGeometry(0.1, 0.1, 5, 16);
-        const stemMaterial = new THREE.MeshStandardMaterial({ color: 0x2d6a4f, roughness: 0.6 });
-        const stem = new THREE.Mesh(stemGeometry, stemMaterial);
-        stem.position.y = -2.5;
-        roseGroup.add(stem);
-
-        // أوراق الشجر 3D
-        const leafGeometry = new THREE.ConeGeometry(0.5, 1.5, 4);
-        const leaf1 = new THREE.Mesh(leafGeometry, stemMaterial);
-        leaf1.position.set(0.6, -1.5, 0);
-        leaf1.rotation.z = -Math.PI / 4;
-        roseGroup.add(leaf1);
-
-        // بتلات الوردة الـ 3D (طبقات كروية متداخلة تعطي تجسيم حقيقي للبرعم)
-        const petalMat = new THREE.MeshStandardMaterial({ color: 0xd62828, roughness: 0.5, side: THREE.DoubleSide });
-        
-        // قلب الوردة الداخلي
-        const centerGeo = new THREE.SphereGeometry(0.8, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
-        const centerRose = new THREE.Mesh(centerGeo, petalMat);
-        centerRose.position.y = 0.2;
-        roseGroup.add(centerRose);
-
-        // الطبقات الخارجية للبتلات
-        const petals = [];
-        for (let i = 0; i < 12; i++) {
-            const petalGeo = new THREE.SphereGeometry(1, 16, 16, 0, Math.PI / 1.5, 0, Math.PI / 2);
-            const petal = new THREE.Mesh(petalGeo, petalMat);
-            
-            // توزيع البتلات بزوايا مختلفة عشان تدي شكل وردة حقيقية ملتفة
-            petal.rotation.x = Math.PI / 2 + (Math.random() - 0.5) * 0.2;
-            petal.rotation.y = (i * Math.PI / 3);
-            petal.scale.set(0.8, 1, 0.8);
-            petal.position.y = 0.1;
-            
-            roseGroup.add(petal);
-            petals.push(petal);
-        }
-
-        scene.add(roseGroup);
-
-        // أنيميشن حركة الوردة الـ 3D (تأثير الدوران الخفيف والنمو)
-        roseGroup.scale.set(0, 0, 0); // بتبدأ من الصفر
-        
-        let scale = 0;
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            // نمو الوردة أول ما الصفحة تفتح
-            if (scale < 1.2) {
-                scale += 0.015;
-                roseGroup.scale.set(scale, scale, scale);
-            }
-            
-            // دوران هادئ واحترافي حول نفسها
-            roseGroup.rotation.y += 0.01;
-            
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // ضبط المقاسات لو الشاشة اتغيرت
-        window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        });
-
-        // ===== دالة فتح الجواب =====
-        function toggleEnvelope() {
-            const envelope = document.getElementById('envelope');
-            const btn = document.getElementById('openBtn');
-            
-            envelope.classList.add('open');
-            btn.innerText = 'عيد ميلاد سعيد! 🎉';
-            btn.disabled = true;
-        }
-    </script>
 </body>
 </html>
