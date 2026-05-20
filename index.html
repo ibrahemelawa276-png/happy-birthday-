@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كل سنة وأنتِ طيبة يا غالية! ✨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
 
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 85%;
+            z-index: 10;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            color: #ff477e;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #6c757d;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* أنيميشن الوردة والقلب */
+        .animation-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .flower, .heart {
+            font-size: 4rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .heart {
+            animation-delay: 0.5s;
+            color: #ff0054;
+        }
+
+        /* حركات الأنيميشن */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* زينة متساقطة في الخلفية */
+        .confetti {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: fall 5s linear infinite;
+            top: -50px;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>كل سنة وأنتِ طيبة يا أحلى وأغلى صاحبة! 🎂✨</h1>
+        <p>اليوم ده مش عيد ميلادك أنتِ وبس، ده عيد ميلاد الأيام الحلوة اللي جمعتني بيكِ. ربنا يديمك في حياتي يا سندي وسري وفرحتي. بتمنالك سنة طاقة وخير ونجاح زي قلبك الأبيض! 💗</p>
+        
+        <div class="animation-container">
+            <div class="flower">🌹</div>
+            <div class="heart">❤️</div>
+            <div class="flower">🌸</div>
+        </div>
+    </div>
+
+    <!-- تأثير القلوب المتساقطة -->
+    <script>
+        const emojis = ['🌸', '❤️', '✨', '🎈', '🌹'];
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            confetti.style.opacity = Math.random();
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        setInterval(createConfetti, 300);
+    </script>
+
+</body>
+</html>
